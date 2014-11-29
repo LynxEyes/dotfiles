@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+require 'readline'
+
+DEFAULT_CMD = "pal -r 8"
+PALSH_PS1="palsh: "
+
+trap(:INT){ exit }
+trap(:TERM){ exit }
+clear = ->{print "\e[H\e[2J"}
+
+clear.()
+system DEFAULT_CMD
+
+while cmd = Readline.readline(PALSH_PS1, true) do
+  clear.()
+
+  if cmd && !cmd.empty?
+    case cmd
+      when /^add (-p)? *([^ ]*) (.*)$/
+        cal = if $1.nil?
+                "work"
+              else
+                "personal"
+              end
+        %x[echo "#{$2} #{$3}" >> ~/.pal/#{cal}.pal]
+        system DEFAULT_CMD
+
+      when /-?m(odify)?/
+        system "pal -m"
+        clear.()
+        system DEFAULT_CMD
+
+      when /^(\d+)$/
+        system %Q[pal -r #{$1}]
+
+      else
+        system %Q[pal #{cmd}]
+    end
+  else
+    system DEFAULT_CMD
+  end
+end
+

@@ -1,0 +1,13 @@
+# -------------------------------------------------------------
+# People aliases
+
+alias some   Some Dude <some.dude@somewhere>
+alias guys   Some Guy <some.guy@otherplace>
+alias you    Some Person <some.person@anywhere>
+alias know   Some Bozo <some.bozo@yougotitbynow>
+
+# -------------------------------------------------------------
+# Group aliases
+alias devteam    some, guys
+alias wholeteam  devteam, you, know
+

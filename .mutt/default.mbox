@@ -1,0 +1,36 @@
+set from      = "Your Email Address"
+set realname  = "Your Real Name"
+
+set signature = "~/.mutt/signature"
+
+# SMTP
+source '~/.mutt/default_smtp'
+
+# IMAP
+source '~/.mutt/default_imap'
+
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set trash     = "+[Gmail]/Trash"
+
+set header_cache     = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = "~/.mutt/certificates"
+
+set sort     = 'reverse-threads'
+set sort_aux = 'last-date-received'
+set imap_check_subscribed
+
+unset imap_passive
+set imap_keepalive=300
+
+mailboxes !
+mailboxes "=SomeImportantMailbox"
+mailboxes "=INBOX/DEV"
+
+macro index 1 "<change-folder>=INBOX<enter>"
+macro index 2 "<change-folder>=INBOX/DEV<enter>"
+macro index 3 "<change-folder>=SomeImportantMailbox<enter>"
+macro index 9 "<change-folder>=[Gmail]/Drafts<enter>"
+macro index 0 "<change-folder>=[Gmail]/Sent%20Mail<enter>"
+

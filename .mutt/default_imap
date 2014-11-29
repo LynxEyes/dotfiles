@@ -1,0 +1,6 @@
+# IMAP
+set imap_user = "your user name"
+set imap_pass = "your_weak_password_again"
+
+# Gmail Specific Settings
+set folder    = "imaps://imap.gmail.com:993"

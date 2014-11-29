@@ -1,0 +1,17 @@
+alias tmux="tmux -2"
+alias ls="ls --color"
+alias ll="ls -lah"
+alias be="bundle exec"
+alias z=zeus
+alias zr="zeus rake"
+alias zs="zeus s"
+alias zc="zeus c"
+alias zt="zeus spec"
+alias ..="cd .."
+alias ::="cd ../.."
+alias :::="cd ../../.."
+alias less="less -r"
+alias grep="grep --color=always"
+alias mutt='TERM=screen-256color mutt'
+alias t=todo
+alias tree='tree -C'

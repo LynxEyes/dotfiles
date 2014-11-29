@@ -1,0 +1,48 @@
+source ~/.mutt/default.mbox
+
+#-----------------------------------------------------
+# Settings...
+set index_format="%C [%Z] [%[!%Y, %d %b %H:%M]] %-30.30F (%?M?C%3M&%4c?) %?y?(%.20Y) ?%s"
+# set index_format="%4C %Z %{%b %d} %-15.15L %?M?(#%03M)&(%4l)? %?y?(%.20Y) ?%s"
+
+# other usefull stuff
+set forward_quote
+set include
+set indent_str="> "
+set sort = threads
+set sort_aux=last-date-received
+unset collapse_unread
+
+set editor="vim +':set textwidth=0' +':set wrapmargin=0' +':set wrap'"
+set pager_index_lines = 10
+
+# print through anything to postscript
+set print_command="paps | a2ps"
+auto_view text/html
+
+#----------------------------------------------------
+# Aliases and signatures
+source ~/.mutt/alias
+set sig_on_top=yes
+
+#----------------------------------------------------
+# Sidebar config
+# set sidebar_delim   = '  │'
+set sidebar_visible = no
+# set sidebar_width   = 24
+# set metoo=yes
+
+#----------------------------------------------------
+# Key Bindings
+bind index - collapse-thread
+bind index _ collapse-all
+bind index G last-entry
+bind index "<F5>" 'imap-fetch-mail'
+bind index "<F6>" 'next-unread-mailbox'
+macro index i "<change-folder>=INBOX<enter>"  "go to INBOX"
+# macro index R "<change-folder>='Sent Items'<enter>"  "go to Sent Items"
+
+# set query_command = "~/mybins/ldap '%s'"
+# bind editor "\t" complete-query # tab completion uses address book over ldap instead of aliases
+macro index M "T ~U<enter>;Wn;t." "Mark all messages as read"
+

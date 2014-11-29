@@ -1,0 +1,26 @@
+#!/bin/bash
+
+red="\[\033[1;31m\]";
+gre="\[\033[1;32m\]";
+yel="\[\033[1;33m\]";
+pur="\[\033[1;34m\]";
+pin="\[\033[1;35m\]";
+cya="\[\033[1;36m\]";
+whi="\[\033[1;37m\]";
+nor="\[\033[0;39m\]";
+bld="\[\033[1;39m\]";
+TSH_PS1="tsh: "
+
+trap "echo trapped" 3
+
+while read -p "$TSH_PS1" cmd ; do
+    if [[ -z $cmd ]]; then
+      clear
+      todo -c ls
+    elif [[ $cmd == "c" ]]; then
+      clear
+    else
+      todo -c $cmd
+    fi
+done
+

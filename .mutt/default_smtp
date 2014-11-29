@@ -1,0 +1,7 @@
+# SMTP
+set smtp_url = "YOUR SMTP URL"
+set smtp_pass = "your_weak_password"
+
+# Google's SMTP
+#  url: "smtp://your_address@smtp.gmail.com:587/"
+#  pass: .......

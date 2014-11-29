@@ -1,0 +1,6 @@
+application/pdf;  evince %s;
+application/vnd.openxmlformats-officedocument.presentationml.presentation;  libreoffice %s;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;  libreoffice %s;
+# text/html; elinks -force-html %s;
+# text/html; google-chrome %s; test=test -n "$DISPLAY"; needsterminal
+
