@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+file = ARGV[0]
+version_back = ARGV[1] || 1
+
+rev = %x[git log --pretty=tformat:'%h' #{file} | head -n #{version_back} | tail -n 1].tr("\n","")
+puts %x[git show #{rev}~1:#{file}]
+

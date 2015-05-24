@@ -129,12 +129,16 @@ bld="\[\033[1;39m\]";
 time='$(date +%H:%M:%S)'
 PS1="[$gre\u$bld#$cya\h$bld @ $yel$time$nor]: \w\n$ "
 
-export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=00;33:*.tgz=00;33:*.7z=00;33:*.arj=00;33:*.taz=00;33:*.lzh=00;33:*.zip=00;33:*.z=00;33:*.Z=00;33:*.gz=00;33:*.bz2=00;33:*.deb=04;31:*.rpm=04;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.flac=01;35:*.mp3=01;35:*.mpc=01;35:*.ogg=01;35:*.wav=01;35:*.rb=00;31:*.js=00;32:*.yml=00;32:*.rake=00;31';
-export GREP_OPTIONS='--color=auto --exclude-dir=.git --exclude=.tags*'
+export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=00;33:*.tgz=00;33:*.7z=00;33:*.arj=00;33:*.taz=00;33:*.lzh=00;33:*.zip=00;33:*.z=00;33:*.Z=00;33:*.gz=00;33:*.bz2=00;33:*.deb=04;31:*.rpm=04;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.flac=01;35:*.mp3=01;35:*.mpc=01;35:*.ogg=01;35:*.wav=01;35:*.rb=00;31:*.js=00;32:*.json=00;32:*.sql=00;32:*.yml=00;32:*.rake=00;31';
+export GREP_OPTIONS='--color=auto -I --exclude-dir=.git --exclude=.tags* --exclude=*.tlf'
 
 source ~/.alias
 EDITOR='vim'
 TERM=xterm-256color
-PATH=./:~/bin/:$PATH
+PATH=./:./bin:~/bin:$PATH
 export MYSQL_PS1="[\u#\h (\d) @ \R:\m:\s]> "
 
+COLORFGBG="default;default"
+
+unset GNOME_KEYRING_CONTROL
+export PGHOST=localhost
