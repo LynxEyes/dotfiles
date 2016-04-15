@@ -15,3 +15,4 @@ alias grep="grep --color=always"
 alias mutt='TERM=screen-256color mutt'
 alias t=todo
 alias tree='tree -C'
+alias vim='VIMSWPPATH="$(pwd)/.git/vimswp//" vim'

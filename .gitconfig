@@ -10,7 +10,11 @@
 	co = checkout
 
   lol = log --graph --all --oneline --decorate=short
-  ll = log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ci %C(cyan)%an%Creset%C(auto)%d%Creset %s %C(green bold)%cr%Creset' --date=short --all
+  ll = log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ci %C(cyan)%an%Creset%C(auto)%d%Creset %s %C(green bold)%cr%Creset' --date=short --all --date-order
+  lls = log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ci %C(cyan)%an%Creset%C(auto)%d%Creset %s %C(green bold)%cr%Creset' --date=short --date-order
+  lg = log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset) %C(green bold)%aD%C(reset) %C(green)(%ar)%C(reset)%C(auto)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim blue)- %an%C(reset)' --all --date-order
+  lf = log --raw --abbrev-commit
+  lfp = log --raw --abbrev-commit -p
   slog         = log --pretty=tformat:'%C(yellow bold)%h %C(blue bold)%ci %C(green bold)%<(17)%an %C(white bold)%s'
   ls           = log --pretty=tformat:'%C(yellow bold)%h %C(blue bold)%ci %C(green bold)%<(17)%an %C(white bold)%s'
   lfiles       = log --name-only --pretty=format:
@@ -25,19 +29,26 @@
   di = diff -w --color-words
 
   br = branch
-  ls-untracked = ls-files --other --exclude-standard
-  ls-modified = ls-files --modified
-  ls-deleted = ls-files --deleted
+  ls-files-untracked = ls-files --other --exclude-standard
+  ls-files-modified = ls-files --modified
 
+  bd = branch -d
   killbranch = !sh -c 'git branch -d $1 && git push origin :$1' -
-  update = "!sh -c 'git pull && git submodule foreach git pull'"
+  delbranch = !sh -c 'git branch -d $1 && git push --delete origin $1' -
+  update = !sh -c 'git pull && git submodule foreach git pull'
   deltag = !sh -c 'git tag -d $1 && git push origin :refs/tags/$1' -
+
   fdiff = fuzzy diff
+  fdi = fuzzy di
   fadd  = fuzzy add
+
 [difftool]
 	prompt = false
 [cola]
-	fontdiff = Ubuntu Mono,12,-1,5,50,0,0,0,0,0
+	fontdiff = Ubuntu Mono,11,-1,5,50,0,0,0,0,0
 	tabwidth = 2
+	textwidth = 80
 [push]
 	default = matching
+[pull]
+  rebase = true
