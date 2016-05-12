@@ -348,3 +348,7 @@ function! g:BMWorkDirFileLocation()
         return getcwd().'/.'.filename
     endif
 endfunction
+
+set cursorline
+highlight CursorLine cterm=NONE ctermbg=236
+
