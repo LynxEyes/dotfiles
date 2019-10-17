@@ -1,0 +1,59 @@
+[include]
+  path = ~/.gituser
+[color]
+	ui = true
+[core]
+	editor = vim
+  excludesfile = ~/.gitignore_global
+	autocrlf = false
+[alias]
+  st = status
+	co = checkout
+
+  lol = log --graph --all --oneline --decorate=short
+  ll = log --graph --pretty=format:'%C(yellow)%h%Creset %C(green)%ci %C(cyan)%an%Creset%C(auto)%d%Creset %s %C(green bold)%cr%Creset' --date=short --all
+  slog = log --pretty=tformat:'%C(yellow bold)%h %C(blue bold)%ci %C(green bold)%<(17)%an %C(white bold)%s'
+  ls = log --pretty=tformat:'%C(yellow bold)%h %C(blue bold)%ci %C(green bold)%<(17)%an %C(white bold)%s'
+  lfiles = log --name-only --pretty=format:
+  lfilechanges = log --name-only --pretty=format:'%C(yellow)%h%Creset %C(bold blue)%an%Creset%C(red bold)%d%Creset%C(green bold)(%cr)%n%s%n'
+  scores = shortlog --all -sn
+
+  # sversion = !sh -c "file=$1;rev=$(git log --pretty=tformat:'%h' $file | head -n 1) && git show ${rev}~1:$file"
+  sversion = !~/bin/git-showversion
+
+  meld = !~/bin/git-meld.pl
+	diffall = !sh ~/bin/diffall.sh
+  di = diff -w --color-words
+
+  br = branch
+  ls-untracked = ls-files --other --exclude-standard
+  ls-modified = ls-files --modified
+  ls-deleted = ls-files --deleted
+
+  killbr = !sh -c 'git branch -d $1 && git push origin :$1' -
+  killbrD = !sh -c 'git branch -D $1 && git push origin :$1' -
+  update = !sh -c 'git pull && git submodule foreach git pull'
+  deltag = !sh -c 'git tag -d $1 && git push origin :refs/tags/$1' -
+  fdiff = fuzzy diff
+  fdi = fuzzy di
+  fadd = fuzzy add
+
+  set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+[difftool]
+	prompt = false
+[cola]
+	fontdiff = Input Mono,12,-1,5,50,0,0,0,0,0
+	tabwidth = 2
+[push]
+	default = current
+[pull]
+  # rebase = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[user]
+	name = My Name Here
+[commit]
+	gpgsign = true

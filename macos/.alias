@@ -1,0 +1,21 @@
+alias tmux="tmux -2"
+alias ls="ls -G"
+alias ll="ls -lah"
+alias be="bundle exec"
+alias z=zeus
+alias zr="zeus rake"
+alias zs="zeus s"
+alias zc="zeus c"
+alias zt="zeus spec"
+alias ..="cd .."
+alias ::="cd ../.."
+alias :::="cd ../../.."
+alias less="less -r"
+alias grep="grep --color=always"
+alias tree='tree -C'
+alias vim='VIMSWPPATH="$(pwd)/.git/vimswp//" vim'
+alias ccat='pygmentize -O style=monokai -f console256 -g'
+alias npm="npm -s"
+alias serve="ruby -run -ehttpd . -p8000"
+alias dc=docker-compose
+alias gitsh='gitsh --git hub'
