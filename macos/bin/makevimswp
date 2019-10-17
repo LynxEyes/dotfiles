@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [[ -d .git ]] && [[ ! -d .git/vimswp ]]; then
+  mkdir .git/vimswp
+fi
