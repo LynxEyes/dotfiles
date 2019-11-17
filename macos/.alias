@@ -14,6 +14,7 @@ alias less="less -r"
 alias grep="grep --color=always"
 alias tree='tree -C'
 alias vim='VIMSWPPATH="$(pwd)/.git/vimswp//" vim'
+alias nvim='VIMSWPPATH="$(pwd)/.git/vimswp//" nvim'
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias npm="npm -s"
 alias serve="ruby -run -ehttpd . -p8000"

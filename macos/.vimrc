@@ -10,7 +10,7 @@ set smarttab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
 set nowrap
-set grepprg=gawk
+set grepprg=grep
 set grepformat=%f:%l:%m
 set textwidth=0
 set wrapmargin=0
@@ -183,7 +183,7 @@ nnoremap <C-f> :grep
 " regenerate ctags everytime a file is saved!
 " autocmd BufWritePost *.rb,*.js,*.css,*.sass,*.scss,*.coffee silent !ctags -R --exclude=@.ctagsignore -f .git/.tags 2>/dev/null &
 " autocmd BufWritePost *.rb,*.js,*.css,*.sass,*.scss,*.coffee silent !ctags -R --tag-relative=yes -f ./.git/.tags 2>/dev/null &
-command CT execute '!ctags -R --tag-relative=yes --exclude=@$HOME/.ctagsignore -f ./.git/.tags 2>/dev/null'
+command CT execute '!ctags -R --tag-relative=yes --sort=yes --exclude=@$HOME/.ctagsignore -f ./.git/.tags 2>/dev/null'
 
 if &term =~ '^screen'
   " tmux will send xterm-style keys when its xterm-keys option is on
@@ -241,15 +241,14 @@ Plugin 'L9'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'junegunn/vim-easy-align'
 Plugin 'ajh17/VimCompletesMe'
 Plugin 'szw/vim-ctrlspace'
 " Plugin 'milkypostman/vim-togglelist'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'MattesGroeger/vim-bookmarks'
+" Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'wesQ3/vim-windowswap'
 Plugin 'editorconfig/editorconfig-vim'
 " Plugin 'ecomba/vim-ruby-refactoring'
@@ -284,6 +283,12 @@ Plugin 'chr4/nginx.vim'
 " Plugin 'rhysd/vim-crystal'
 
 " Plugin 'scrooloose/syntastic'
+" Plugin 'vim-syntastic/syntastic'
+" NEW PLUGINS
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'unkiwii/vim-nerdtree-sync'
 
 call vundle#end()            " required
 filetype plugin indent on
@@ -292,6 +297,10 @@ let g:gitgutter_override_sign_column_highlight = 0
 autocmd BufWritePost * GitGutter
 
 let g:airline_powerline_fonts = 1
+let g:airline_section_b = ''
+let g:airline_section_z = ''
+let g:airline_section_x = airline#section#create_right(['filetype'])
+
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'r'
 set wildignore+=*/node_modules/*,*/dist/*
@@ -308,7 +317,9 @@ let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:NERDTreeShowHidden=1
-" let g:NERDTreeHighlightCursorline=1
+let g:NERDTreeHighlightCursorline=1
+let g:nerdtree_sync_cursorline = 1
+let g:NERDTreeLimitedSyntax = 1
 
 " Setup YCM key to C-TAB in order to be compatible with vim-snipmate
 " SuperTab will call C-TAB when snipmate doesn't answer to it..
@@ -336,7 +347,9 @@ let g:multi_cursor_skip_key='<C-k>'
 let g:multi_cursor_quit_key='<Esc>'
 
 
-let g:syntastic_ruby_checkers = ['rubocop']
+" let g:syntastic_ruby_checkers = ['rubocop']
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascriptreact_checkers = ['eslint']
 " let g:syntastic_typescript_checkers = ['tslint']
 
 set statusline+=%#warningmsg#
@@ -372,3 +385,4 @@ endfunction
 "
 
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let b:vcm_tab_complete = 'tags'
