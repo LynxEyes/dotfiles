@@ -1,3 +1,8 @@
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+
+chruby 2.6
+
 red="\[\033[1;31m\]";
 gre="\[\033[1;32m\]";
 yel="\[\033[1;33m\]";
@@ -18,6 +23,8 @@ EDITOR='vim'
 
 export JAVA_HOME=$(/usr/libexec/java_home)
 PATH=./bin:~/bin:$HOME/.composer/vendor/bin:$PATH
+
+export BAT_THEME="OneHalfDark"
 
 # export NVM_DIR="/Users/ijesus/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -41,3 +48,4 @@ export LANG=en_US.UTF-8
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
+. $HOME/.asdf/installs/rust/1.41.1/env
