@@ -20,3 +20,5 @@ alias npm="npm -s"
 alias serve="ruby -run -ehttpd . -p8000"
 alias dc=docker-compose
 alias gitsh='gitsh --git hub'
+alias ovim='$(which vim)'
+alias vim='nvim'

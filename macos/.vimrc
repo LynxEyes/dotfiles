@@ -18,33 +18,35 @@ set clipboard=unnamed
 set fileformat=unix
 set hidden " allows for unsaved buffers to be hidden
 set backspace=2
-set colorcolumn=81,121
+set colorcolumn=121
 set ttyfast
 set lazyredraw
 set re=1
 set noshowmode
 " set cursorline
-set fillchars+=vert:║
-autocmd ColorScheme * hi VertSplit ctermfg=196
+
+" ===== Instead of backing up files, just reload the buffer when it changes. =====
+" The buffer is an in-memory representation of a file, it's what you edit
+set autoread                         " Auto-reload buffers when file changed on disk
+set nobackup                         " Don't use backup files
+set nowritebackup                    " Don't backup the file while editing
+set noswapfile                       " Don't create swapfiles for new buffers
+set updatecount=0                    " Don't try to write swapfiles after some number of updates
+set backupskip=/tmp/*,/private/tmp/* " Let me edit crontab files
+set scrolloff=4                      " Scroll away from the cursor when I get too close to the edge of the screen
+
+
+" set fillchars+=vert:║
+" autocmd ColorScheme * hi VertSplit ctermfg=196
+autocmd ColorScheme * hi VertSplit ctermfg=254
 " ------------------------------------
 "  GUI options
-if has("gui_running")
-  set go-=T " no toolbar
-  set go-=r " no scrollbar on right
-  set go-=L " no scrollbar on left
-  set guifont=FuraCode\ Nerd\ Font:h14
-  " set t_Co=256
-  set macligatures
-  colorscheme onedark
-  set directory=~/.vimswp
-else
-  set t_Co=256
-  " colorscheme twilight256
-  colorscheme onedark
-  silent exec "! makevimswp"
-  set dir=$VIMSWPPATH,./.git/vimswp/,.
-endif
+silent exec "! makevimswp"
+set dir=$VIMSWPPATH,./.git/vimswp/,.
 
+if has('nvim')
+  set inccommand=nosplit
+endif
 " set term=xterm
 "
 " set dir=~/.vimswap//,/var/tmp//,/tmp//,.
@@ -160,7 +162,7 @@ nnoremap f0 :set foldlevel=100<cr>
 inoremap <C-_> <C-O>za
 
 autocmd FileType c,cpp,java,scala,javascript,typescript let b:comment_leader = '// '
-autocmd FileType conf,fstab,yaml  let b:comment_leader = '# '
+autocmd FileType conf,fstab,yaml,yaml.docker-compose  let b:comment_leader = '# '
 autocmd FileType sh,ruby,python,crystal   let b:comment_leader = '# '
 autocmd FileType vim              let b:comment_leader = '" '
 autocmd FileType clojure          let b:comment_leader = '; '
@@ -181,6 +183,7 @@ vnoremap T <C-]>
 vnoremap B <C-T>
 vnoremap N :tn<CR>
 vnoremap M :tp<CR>
+nnoremap t <C-w><C-]><C-w>T
 
 " nnoremap <C-f> :Gitgrep
 
@@ -226,11 +229,6 @@ nnoremap <leader><Right> :vertical resize +2<CR>
 nnoremap <leader><Up> :resize -2<CR>
 nnoremap <leader><Down> :resize +2<CR>
 
-" buffer navigation...
-map gd :bd<CR>
-map gn :bn<cr>
-map gp :bp<cr>
-
 nnoremap <C-t> :terminal ++rows=25<CR><C-w>r
 
 " ------------------------------------
@@ -243,18 +241,27 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'L9'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-rhubarb'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'itchyny/lightline.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'junegunn/vim-easy-align'
-
 " Plugin 'ajh17/VimCompletesMe'
 " Plugin 'ycm-core/YouCompleteMe'
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
+
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+" Plugin 'Shougo/deoplete.nvim'
+" Plugin 'roxma/nvim-yarp'
+" Plugin 'roxma/vim-hug-neovim-rpc'
 
 Plugin 'szw/vim-ctrlspace'
 " Plugin 'milkypostman/vim-togglelist'
@@ -286,6 +293,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'slim-template/vim-slim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'iamcco/markdown-preview.nvim'
+Plugin 'aliou/sql-heredoc.vim'
 " Plugin 'kchmck/vim-coffee-script'
 " Plugin 'ecomba/vim-ruby-refactoring'
 " Plugin 'briancollins/vim-jst'
@@ -308,12 +316,18 @@ Plugin 'iamcco/markdown-preview.nvim'
 " Plugin 'digitaltoad/vim-pug'
 " Plugin 'rhysd/vim-crystal'
 
+
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+
 Plugin 'w0rp/ale'
 " NEW PLUGINS
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Plugin 'unkiwii/vim-nerdtree-sync'
+"
+Plugin 'sonph/onehalf', {'rtp': 'vim'}
 
 call vundle#end()            " required
 filetype plugin indent on
@@ -321,14 +335,14 @@ filetype plugin indent on
 let g:gitgutter_override_sign_column_highlight = 0
 autocmd BufWritePost * GitGutter
 
+xmap al <Plug>(EasyAlign)
 " let g:airline_powerline_fonts = 1
 " let g:airline_section_b = ''
 " let g:airline_section_z = ''
 " let g:airline_section_x = airline#section#create_right(['filetype'])
 
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
+let g:snipMate = { 'snippet_version' : 1 }
+
 
 set wildignore+=*/node_modules/*,*/dist/*
 let g:ctrlp_show_hidden = 1
@@ -420,7 +434,7 @@ let g:multi_cursor_quit_key            = '<Esc>'
 
 let g:ale_linters = {
       \   'javascript': ['eslint'],
-      \   'ruby': ['rubocop'],
+      \   'ruby': ['rubocop', 'reek'],
       \}
 let g:ale_linters_explicit = 1
 " let g:airline#extensions#ale#enabled = 1
@@ -449,5 +463,64 @@ function! g:BMWorkDirFileLocation()
         return getcwd().'/.'.filename
     endif
 endfunction
-"
 
+
+set t_Co=256
+" Set colour scheme (and more) to light mode
+function! ColorModeLight()
+  let g:color_mode_light=1
+  set background=light
+  colorscheme PaperColor
+  let g:lightline = {
+        \ 'colorscheme': 'one',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'readonly', 'relativepath', 'modified' ] ]
+        \ },
+        \ 'inactive': {
+        \   'left': [ [ 'readonly', 'relativepath', 'modified' ] ]
+        \ },
+        \ }
+endfunction
+
+" Set colour scheme (and more) to dark mode
+function! ColorModeDark()
+  let g:color_mode_light=0
+  set background=dark
+  colorscheme onedark
+  let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'readonly', 'relativepath', 'modified' ] ]
+        \ },
+        \ 'inactive': {
+        \   'left': [ [ 'readonly', 'relativepath', 'modified' ] ]
+        \ },
+        \ }
+endfunction
+
+" Check for system colour mode changed
+function! ColorModeCheck(timer)
+  if filereadable("/tmp/SYSTEM_LIGHT_MODE")
+    for line in readfile('/tmp/SYSTEM_LIGHT_MODE', '', 1)
+        if line =~ '0' && get(g:, 'color_mode_light', 0) == 1
+            call ColorModeDark()
+        elseif line =~ '1' && get(g:, 'color_mode_light', 0) == 0
+            call ColorModeLight()
+        endif
+    endfor
+  endif
+endfunction
+
+if $DARKENV == 'true'
+  call ColorModeDark()
+else
+  call ColorModeLight()
+endif
+
+nnoremap <C-F> :Rg <C-R><C-W><CR>
+inoremap <C-F> <ESC> :Rg <C-R><C-W><CR>
+
+" Regularly check file for changes
+" let timer = timer_start(1500, 'ColorModeCheck', {'repeat': -1})

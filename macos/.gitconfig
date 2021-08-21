@@ -1,11 +1,17 @@
-[include]
-  path = ~/.gituser
 [color]
 	ui = true
 [core]
-	editor = vim
+	editor = nvim
   excludesfile = ~/.gitignore_global
 	autocrlf = false
+  pager = delta
+
+[include]
+  path = ~/.gitdelta
+
+[interactive]
+  diffFilter = delta --color-only
+
 [alias]
   st = status
 	co = checkout
@@ -39,6 +45,7 @@
   fadd = fuzzy add
 
   set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+  trigger-build = !sh -c 'git commit --allow-empty -m "Trigger-build" && git push'
 [difftool]
 	prompt = false
 [cola]
@@ -54,6 +61,14 @@
 	required = true
 	clean = git-lfs clean -- %f
 [user]
-	name = My Name Here
+  name = Ivo Jesus
+  email = ivo.jesus@gmail.com
+	signingKey = A9080127A7FBC44DA6C0A4B53C90BC90485AD4DD
+[github]
+  user = LynxEyes
 [commit]
 	gpgsign = true
+[gpg]
+	program = gpg
+[tag]
+	forceSignAnnotated = false
